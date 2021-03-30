@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redactr.App", "Redactr.App\Redactr.App.csproj", "{CA0113D0-FDD2-4CA3-95FF-3EDD41C25A4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redactr.Test", "Redactr.Test\Redactr.Test.csproj", "{486BD0AD-183C-434F-95BA-4088BA25C874}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA0113D0-FDD2-4CA3-95FF-3EDD41C25A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA0113D0-FDD2-4CA3-95FF-3EDD41C25A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA0113D0-FDD2-4CA3-95FF-3EDD41C25A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA0113D0-FDD2-4CA3-95FF-3EDD41C25A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{486BD0AD-183C-434F-95BA-4088BA25C874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{486BD0AD-183C-434F-95BA-4088BA25C874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{486BD0AD-183C-434F-95BA-4088BA25C874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{486BD0AD-183C-434F-95BA-4088BA25C874}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B088BB6B-7744-49A3-92B1-0C1B9B59DB27}
+	EndGlobalSection
+EndGlobal
