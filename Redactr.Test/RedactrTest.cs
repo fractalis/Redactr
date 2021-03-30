@@ -22,7 +22,7 @@ namespace Redactr.Test
 
             // Act
             Redactr r = new Redactr(fileSystem);
-            r.TraverseDirectory(new TraverseData(@"C:\Test", "test"));
+            r.TraverseDirectory(@"C:\Test", "test");
 
             while (Redactr.tasks.Any(t => !t.IsCompleted)) { }
 

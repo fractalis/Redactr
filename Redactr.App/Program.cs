@@ -22,17 +22,6 @@ namespace Redactr
         public char RC; // Replacement Char
     }
 
-    public struct TraverseData
-    {
-        public TraverseData(string dn, string rw)
-        {
-            DN = dn;
-            RW = rw;
-        }
-        public string DN; // Directory Name
-        public string RW; // Redacted Word
-    }
-
     public class Redactor
     {
         public static void Redact(object data)
@@ -61,24 +50,21 @@ namespace Redactr
         {
         }
 
-        public void TraverseDirectory(object data)
+        public void TraverseDirectory(string dn, string rw)
         {
-            TraverseData td = (TraverseData)data;
-
-
-            IDirectoryInfo dirInfo = this.fileSystem.DirectoryInfo.FromDirectoryName(td.DN);
+            IDirectoryInfo dirInfo = this.fileSystem.DirectoryInfo.FromDirectoryName(dn);
             
             foreach (IDirectoryInfo di in dirInfo.EnumerateDirectories())
             {
                 Redactr r = new Redactr(this.fileSystem);
-                r.TraverseDirectory(new TraverseData(di.FullName, td.RW));
+                r.TraverseDirectory(di.FullName, rw);
             }
 
             foreach (IFileInfo fi in dirInfo.EnumerateFiles())
             {
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
-                    Redactor.Redact(new RedactData(this.fileSystem, fi.FullName, td.RW, '*'));
+                    Redactor.Redact(new RedactData(this.fileSystem, fi.FullName, rw, '*'));
                 }));
             }
         }
@@ -95,7 +81,7 @@ namespace Redactr
             }
 
             Redactr r = new Redactr();
-            r.TraverseDirectory(new TraverseData(args[0], args[1]));
+            r.TraverseDirectory(args[0], args[1]);
 
             while (Redactr.tasks.Any(t => !t.IsCompleted)) { } // Spin-Wait
         }
