@@ -48,18 +48,17 @@ namespace Redactr
     {
         public static List<Task> tasks = new List<Task>();
 
-        readonly IFileSystem filesystem;
+        readonly IFileSystem fileSystem;
 
-        public Redactr(IFileSystem filesystem)
+        public Redactr(IFileSystem fileSystem)
         {
-            this.filesystem = filesystem;
+            this.fileSystem = fileSystem;
         }
 
         public Redactr() : this(
-            filesystem : new FileSystem()
+            fileSystem: new FileSystem()
         )
         {
-
         }
 
         public void TraverseDirectory(object data)
@@ -67,23 +66,19 @@ namespace Redactr
             TraverseData td = (TraverseData)data;
 
 
-            IDirectoryInfo dirInfo = this.filesystem.DirectoryInfo.FromDirectoryName(td.DN);
+            IDirectoryInfo dirInfo = this.fileSystem.DirectoryInfo.FromDirectoryName(td.DN);
             
             foreach (IDirectoryInfo di in dirInfo.EnumerateDirectories())
             {
-                Redactr r = new Redactr(this.filesystem);
-                tasks.Add(Task.Factory.StartNew(() =>
-                {
-                    r.TraverseDirectory(new TraverseData(di.FullName, td.RW));
-                }));
-                
+                Redactr r = new Redactr(this.fileSystem);
+                r.TraverseDirectory(new TraverseData(di.FullName, td.RW));
             }
 
             foreach (IFileInfo fi in dirInfo.EnumerateFiles())
             {
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
-                    Redactor.Redact(new RedactData(this.filesystem, fi.FullName, td.RW, '*'));
+                    Redactor.Redact(new RedactData(this.fileSystem, fi.FullName, td.RW, '*'));
                 }));
             }
         }
@@ -101,6 +96,8 @@ namespace Redactr
 
             Redactr r = new Redactr();
             r.TraverseDirectory(new TraverseData(args[0], args[1]));
+
+            while (Redactr.tasks.Any(t => !t.IsCompleted)) { } // Spin-Wait
         }
     }
 }

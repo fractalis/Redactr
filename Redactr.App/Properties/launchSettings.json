@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Redactr.App": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Test test"
+    }
+  }
+}
